@@ -1,0 +1,7 @@
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+# No build command needed — this is a static HTML site.
+# Netlify will still run `npm install` automatically before deploying,
+# which installs the "stripe" package the function needs.

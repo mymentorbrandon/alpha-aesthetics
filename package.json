@@ -1,0 +1,9 @@
+{
+  "name": "alpha-aesthetics-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Alpha Aesthetics & Health static site + Netlify serverless checkout function",
+  "dependencies": {
+    "stripe": "^16.12.0"
+  }
+}
