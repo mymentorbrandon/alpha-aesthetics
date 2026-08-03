@@ -86,6 +86,166 @@
 
   // ---------- UI: nav icon + badge ----------
 
+  function injectButtonStyles() {
+    if (document.getElementById("alpha-cart-btn-styles")) return;
+    const style = document.createElement("style");
+    style.id = "alpha-cart-btn-styles";
+    style.textContent = `
+      .alpha-add-to-cart {
+        background: var(--teal, #4a8fa0);
+        color: #fff;
+        border: none;
+        padding: 7px 16px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.1s ease;
+        margin-left: 10px;
+        white-space: nowrap;
+      }
+      .alpha-add-to-cart:hover {
+        background: var(--teal-dark, #3a7080);
+      }
+      .alpha-add-to-cart:active {
+        transform: scale(0.96);
+      }
+      .alpha-qty-input {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 5px 6px;
+        font-size: 12px;
+      }
+      .alpha-qty-input:focus {
+        outline: none;
+        border-color: var(--teal, #4a8fa0);
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function injectButtonStyles() {
+    if (document.getElementById("alpha-cart-btn-styles")) return;
+    const style = document.createElement("style");
+    style.id = "alpha-cart-btn-styles";
+    style.textContent = `
+      .alpha-add-to-cart {
+        background: var(--teal, #4a8fa0);
+        color: #fff;
+        border: none;
+        padding: 7px 16px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.1s ease;
+        margin-left: 10px;
+        white-space: nowrap;
+      }
+      .alpha-add-to-cart:hover {
+        background: var(--teal-dark, #3a7080);
+      }
+      .alpha-add-to-cart:active {
+        transform: scale(0.96);
+      }
+      .alpha-qty-input {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 5px 6px;
+        font-size: 12px;
+      }
+      .alpha-qty-input:focus {
+        outline: none;
+        border-color: var(--teal, #4a8fa0);
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function injectButtonStyles() {
+    if (document.getElementById("alpha-cart-btn-styles")) return;
+    const style = document.createElement("style");
+    style.id = "alpha-cart-btn-styles";
+    style.textContent = `
+      .alpha-add-to-cart {
+        background: var(--teal, #4a8fa0);
+        color: #fff;
+        border: none;
+        padding: 7px 16px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.1s ease;
+        margin-left: 10px;
+        white-space: nowrap;
+      }
+      .alpha-add-to-cart:hover {
+        background: var(--teal-dark, #3a7080);
+      }
+      .alpha-add-to-cart:active {
+        transform: scale(0.96);
+      }
+      .alpha-qty-input {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 5px 6px;
+        font-size: 12px;
+      }
+      .alpha-qty-input:focus {
+        outline: none;
+        border-color: var(--teal, #4a8fa0);
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function injectButtonStyles() {
+    if (document.getElementById("alpha-cart-btn-styles")) return;
+    const style = document.createElement("style");
+    style.id = "alpha-cart-btn-styles";
+    style.textContent = `
+      .alpha-add-to-cart {
+        background: var(--teal, #4a8fa0);
+        color: #fff;
+        border: none;
+        padding: 7px 16px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.1s ease;
+        margin-left: 10px;
+        white-space: nowrap;
+      }
+      .alpha-add-to-cart:hover {
+        background: var(--teal-dark, #3a7080);
+      }
+      .alpha-add-to-cart:active {
+        transform: scale(0.96);
+      }
+      .alpha-qty-input {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 5px 6px;
+        font-size: 12px;
+      }
+      .alpha-qty-input:focus {
+        outline: none;
+        border-color: var(--teal, #4a8fa0);
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   function injectCartIcon() {
     if (document.getElementById("alpha-cart-icon")) return; // already injected
 
@@ -336,6 +496,7 @@
   // ---------- Init ----------
 
   document.addEventListener("DOMContentLoaded", function () {
+    injectButtonStyles();
     injectCartIcon();
     injectDrawer();
     renderBadge();
