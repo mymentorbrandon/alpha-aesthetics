@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ══ SEO META TAGS ══ -->
+  <title>MUSE Cell Science | Alpha Aesthetics & Health | Alpharetta, GA</title>
+  <meta name="description" content="Learn about MUSE cells (Multilineage-differentiating Stress-Enduring cells) — an area of active regenerative science. Book a consultation with Alpha Aesthetics & Health in Alpharetta, GA to discuss whether this option may fit your goals." />
+  <meta name="keywords" content="MUSE cells Alpharetta, regenerative science Alpharetta GA, multilineage differentiating stress enduring cells, Alpha Aesthetics" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Alpha Aesthetics & Health" />
+  <link rel="canonical" href="https://mymentorbrandon.github.io/alpha-aesthetics/muse-cells.html" />
+  <link rel="icon" type="image/webp" href="images/logo.webp" />
+
+  <!-- ══ FONTS ══ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --teal: #4a8fa0;
+      --teal-dark: #3a7080;
+      --gray: #8a8a8a;
+      --light: #f7f5f3;
+      --white: #ffffff;
+      --text: #333;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--white); }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .top-banner { background: var(--teal); color: var(--white); text-align: center; padding: 10px 20px; font-size: 13px; letter-spacing: 1px; }
+    .top-banner a { display: inline-block; margin-left: 16px; background: var(--white); color: var(--teal); padding: 5px 16px; border-radius: 2px; font-weight: 700; font-size: 12px; }
+
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 5%; background: var(--white); box-shadow: 0 2px 8px rgba(0,0,0,0.07); position: sticky; top: 0; z-index: 100; }
+    .logo { height: 70px; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 12px; letter-spacing: 2px; font-weight: 600; color: var(--gray); transition: color .2s; }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta { background: var(--teal); color: var(--white) !important; padding: 10px 20px; border-radius: 2px; letter-spacing: 1.5px; font-size: 12px; font-weight: 700; }
+
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.48), rgba(0,0,0,0.48)),
+                  url('images/herophoto.jpg') center/cover no-repeat;
+      min-height: 70vh; display: flex; align-items: center; padding: 0 8%;
+    }
+    .hero-inner { max-width: 680px; }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 4px; color: rgba(255,255,255,0.75); font-weight: 600; text-transform: uppercase; margin-bottom: 18px; }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px, 6vw, 64px); color: var(--white); line-height: 1.15; margin-bottom: 22px; }
+    .hero h1 span { color: #a8d8e2; }
+    .hero p { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.85); max-width: 540px; margin-bottom: 34px; }
+    .btn-primary { display: inline-block; background: var(--teal); color: var(--white); padding: 14px 36px; font-size: 11px; letter-spacing: 3px; font-weight: 700; border-radius: 2px; transition: background .2s; }
+    .btn-primary:hover { background: var(--teal-dark); }
+    .btn-outline { display: inline-block; border: 1.5px solid rgba(255,255,255,0.6); color: var(--white); padding: 13px 30px; font-size: 11px; letter-spacing: 3px; font-weight: 700; border-radius: 2px; margin-left: 14px; transition: background .2s; }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+    section { padding: 80px 8%; }
+    .eyebrow { font-size: 11px; letter-spacing: 4px; font-weight: 700; color: var(--teal); text-transform: uppercase; margin-bottom: 10px; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 4vw, 48px); color: var(--teal-dark); margin-bottom: 22px; line-height: 1.2; }
+    .section-body { font-size: 13.5px; line-height: 1.9; color: #555; max-width: 720px; }
+    .divider { width: 50px; height: 2px; background: var(--teal); margin: 18px 0 28px; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 2px; font-weight: 700; color: var(--teal); margin-bottom: 32px; }
+
+    .about-muse { background: var(--light); }
+    .about-muse .inner { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: center; }
+    .about-muse img { border-radius: 4px; width: 100%; height: 440px; object-fit: cover; }
+
+    .stats-strip { background: var(--teal); padding: 50px 8%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: center; }
+    .stat-item .number { font-family: 'Cormorant Garamond', serif; font-size: 44px; color: var(--white); line-height: 1; }
+    .stat-item .label { font-size: 11px; letter-spacing: 2px; color: rgba(255,255,255,0.8); margin-top: 8px; text-transform: uppercase; font-weight: 600; }
+
+    .how-it-works { background: var(--white); }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; margin-top: 44px; }
+    .step-card { background: var(--light); border-radius: 4px; padding: 36px 28px; border-top: 3px solid var(--teal); }
+    .step-number { font-family: 'Cormorant Garamond', serif; font-size: 44px; color: var(--teal); opacity: 0.3; line-height: 1; margin-bottom: 14px; }
+    .step-card h3 { font-size: 12px; letter-spacing: 2px; font-weight: 700; color: var(--teal-dark); margin-bottom: 12px; text-transform: uppercase; }
+    .step-card p { font-size: 13px; line-height: 1.8; color: #555; }
+
+    .why-consult { background: var(--light); }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; margin-top: 44px; }
+    .why-card { border-radius: 4px; padding: 32px 26px; background: var(--white); box-shadow: 0 4px 20px rgba(0,0,0,0.04); }
+    .why-icon { font-size: 26px; margin-bottom: 14px; }
+    .why-card h3 { font-size: 12px; letter-spacing: 2px; font-weight: 700; color: var(--teal-dark); margin-bottom: 10px; text-transform: uppercase; }
+    .why-card p { font-size: 13px; line-height: 1.8; color: #555; }
+
+    .cta-band {
+      background: linear-gradient(rgba(58,112,128,0.93), rgba(58,112,128,0.93)),
+                  url('images/herophoto.jpg') center/cover no-repeat;
+      padding: 80px 8%; text-align: center; color: var(--white);
+    }
+    .cta-band h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 4vw, 48px); margin-bottom: 16px; }
+    .cta-band p { font-size: 14px; line-height: 1.8; color: rgba(255,255,255,0.85); max-width: 580px; margin: 0 auto 36px; }
+    .btn-white { display: inline-block; background: var(--white); color: var(--teal-dark); padding: 14px 40px; font-size: 11px; letter-spacing: 3px; font-weight: 700; border-radius: 2px; transition: opacity .2s; }
+    .btn-white:hover { opacity: 0.88; }
+
+    .faq-section { background: var(--white); }
+    .faq-wrap { max-width: 820px; margin: 40px auto 0; }
+    details { border-bottom: 1px solid #ddd; padding: 4px 0; }
+    summary { padding: 16px 0; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text); }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '+'; font-size: 20px; color: var(--teal); }
+    details[open] summary::after { content: '−'; }
+    details p { font-size: 13px; line-height: 1.8; color: #555; padding-bottom: 16px; }
+
+    .disclaimer { background: var(--light); padding: 40px 8%; }
+    .disclaimer p { font-size: 11.5px; line-height: 1.8; color: #888; max-width: 900px; margin: 0 auto; font-style: italic; }
+
+    footer { background: #2a2a2a; color: rgba(255,255,255,0.7); padding: 50px 8% 30px; }
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    footer h4 { color: var(--white); font-size: 12px; letter-spacing: 3px; margin-bottom: 16px; }
+    footer p, footer a { font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.65); }
+    footer a:hover { color: var(--teal); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 12px; text-align: center; color: rgba(255,255,255,0.4); }
+
+    @media (max-width: 768px) {
+      .about-muse .inner, .footer-grid { grid-template-columns: 1fr; }
+      .stats-strip { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero { min-height: 60vh; }
+      .about-muse img { height: 300px; }
+      .btn-outline { margin-left: 0; margin-top: 12px; display: block; width: fit-content; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ TOP BANNER ══ -->
+<div class="top-banner">
+  Receive 20% off your first treatment!
+  <a href="booking.html">BOOK NOW</a>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="index.html"><img class="logo" src="images/logo.webp" alt="Alpha Aesthetics & Health Logo" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="index.html#services">SERVICES</a></li>
+    <li><a href="booking.html" class="nav-cta">BOOK NOW</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<header class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Regenerative Science at Alpha Aesthetics</p>
+    <h1>Understanding <span>MUSE Cells</span></h1>
+    <p>
+      Multilineage-differentiating Stress-Enduring cells — MUSE cells for short — are an active
+      area of regenerative science research. Our team stays current on emerging cellular science
+      so we can have an informed conversation with you about it during a consultation.
+    </p>
+    <a href="booking.html" class="btn-primary">BOOK A CONSULTATION</a>
+    <a href="#what-are-muse-cells" class="btn-outline">LEARN MORE</a>
+  </div>
+</header>
+
+<!-- ══ WHAT ARE MUSE CELLS ══ -->
+<section class="about-muse" id="what-are-muse-cells">
+  <div class="inner">
+    <div>
+      <p class="eyebrow">The Science</p>
+      <h2 class="section-title">What Are MUSE Cells?</h2>
+      <div class="divider"></div>
+      <p class="section-body">
+        MUSE cells — short for Multilineage-differentiating Stress-Enduring cells — are a naturally
+        occurring subset of cells first described by researchers in 2010. They are studied for their
+        ability to survive stressful conditions and for characteristics that distinguish them from
+        other cell populations found in connective tissue throughout the body.
+      </p>
+      <br />
+      <p class="section-body">
+        Research in this area is ongoing, and the scientific understanding of MUSE cells continues to
+        evolve. This page is provided for general educational purposes only — it is not a claim that
+        any specific treatment, cure, or outcome is guaranteed, and it does not describe a treatment
+        offered or endorsed by any regulatory body.
+      </p>
+      <br />
+      <p class="section-body">
+        If you're curious how this area of science relates to your own goals, the best next step is a
+        one-on-one consultation with our team, where we can talk through what's currently known,
+        answer your questions, and help you make an informed decision.
+      </p>
+    </div>
+    <img
+      src="images/herophoto.jpg"
+      alt="Regenerative science consultation at Alpha Aesthetics Alpharetta GA"
+      loading="lazy"
+    />
+  </div>
+</section>
+
+<!-- ══ STATS STRIP ══ -->
+<div class="stats-strip">
+  <div class="stat-item">
+    <div class="number">2010</div>
+    <div class="label">First Described In Research</div>
+  </div>
+  <div class="stat-item">
+    <div class="number">1:1</div>
+    <div class="label">Personalized Consultations</div>
+  </div>
+  <div class="stat-item">
+    <div class="number">100%</div>
+    <div class="label">Education-First Approach</div>
+  </div>
+</div>
+
+<!-- ══ HOW A CONSULTATION WORKS ══ -->
+<section class="how-it-works">
+  <p class="eyebrow">Getting Started</p>
+  <h2 class="section-title">What to Expect at a Consultation</h2>
+  <div class="divider"></div>
+  <p class="section-body">
+    We keep the process simple and centered on your questions — no pressure, no assumptions about
+    what's right for you before we've actually talked.
+  </p>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-number">01</div>
+      <h3>Share Your Goals</h3>
+      <p>Tell us what brought you in and what you're hoping to learn more about.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">02</div>
+      <h3>Health History Review</h3>
+      <p>Our team reviews your relevant health history so any conversation is grounded in your specific situation.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">03</div>
+      <h3>Ask Anything</h3>
+      <p>We'll walk through what's currently understood about this area of regenerative science and answer your questions directly.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">04</div>
+      <h3>Decide Together</h3>
+      <p>If it's a fit for your goals, we'll talk through next steps. If it's not, we'll tell you that too.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHY CONSULT WITH US ══ -->
+<section class="why-consult">
+  <p class="eyebrow">Why Alpha Aesthetics</p>
+  <h2 class="section-title">Why Talk to Our Team</h2>
+  <div class="divider"></div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">🩺</div>
+      <h3>Physician-Guided</h3>
+      <p>Our consultations are guided by our clinical team, not a sales script.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📚</div>
+      <h3>Education First</h3>
+      <p>We'd rather you leave informed than leave with something that isn't right for you.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🤝</div>
+      <h3>No Pressure</h3>
+      <p>A consultation is a conversation — there's no obligation to move forward afterward.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="faq-section">
+  <p class="eyebrow">Common Questions</p>
+  <h2 class="section-title">MUSE Cell FAQs</h2>
+  <div class="divider"></div>
+  <div class="faq-wrap">
+
+    <details>
+      <summary>What does "MUSE cells" actually stand for?</summary>
+      <p>Multilineage-differentiating Stress-Enduring cells. The name describes properties researchers have observed in these cells during laboratory study.</p>
+    </details>
+
+    <details>
+      <summary>Is this the same as other stem cell terms I've heard?</summary>
+      <p>No — there are several distinct categories of cells discussed in regenerative science, and the terminology matters. We're happy to walk through the differences during a consultation rather than oversimplify it here.</p>
+    </details>
+
+    <details>
+      <summary>Can you tell me if this is right for me over the phone?</summary>
+      <p>Not responsibly, no. This kind of conversation depends on your individual health history, which is exactly what an in-person consultation is for.</p>
+    </details>
+
+    <details>
+      <summary>What does a consultation cost?</summary>
+      <p>Give our team a call or use the booking button on this page for current consultation pricing and availability.</p>
+    </details>
+
+    <details>
+      <summary>Where can I learn more before booking?</summary>
+      <p>We're glad to send you general educational resources ahead of your visit — just ask when you book.</p>
+    </details>
+
+  </div>
+</section>
+
+<!-- ══ CTA BAND ══ -->
+<section class="cta-band">
+  <h2>Have Questions? Let's Talk.</h2>
+  <p>
+    Book a consultation with our team in Alpharetta, GA. We'll answer your questions honestly and
+    help you understand whether this is worth exploring further for your goals.
+  </p>
+  <a href="booking.html" class="btn-white">BOOK MY CONSULTATION</a>
+  <div style="max-width:420px; margin:36px auto 0; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.25); border-radius:6px; padding:24px;">
+    <p style="font-size:12px; letter-spacing:1px; color:rgba(255,255,255,0.85); margin-bottom:10px;">RESERVE YOUR SPOT ONLINE</p>
+    <p style="font-size:22px; font-weight:700; color:#fff; margin-bottom:14px;">$75 Consultation Deposit</p>
+    <button class="alpha-add-to-cart" data-product-id="muse-consult" style="background:#fff; color:var(--teal-dark); border:none; padding:12px 28px; border-radius:2px; font-size:11px; letter-spacing:2px; font-weight:700; cursor:pointer;">ADD TO CART</button>
+    <p style="font-size:11px; color:rgba(255,255,255,0.7); margin-top:12px;">Fully credited toward your visit. Refunded if our team determines this isn't a fit for you.</p>
+  </div>
+</section>
+
+<!-- ══ DISCLAIMER ══ -->
+<div class="disclaimer">
+  <p>
+    The information on this page is provided for general educational purposes only and is not
+    intended as medical advice, nor as a claim that any specific product or procedure can treat,
+    cure, or prevent any disease or condition. It does not constitute an offer of a specific
+    treatment. Individual consultations are required to determine what, if anything, may be
+    appropriate for you. Alpha Aesthetics & Health does not guarantee any outcome.
+  </p>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <img src="images/logoblackandwhite.png" alt="Alpha Aesthetics & Health" style="height:60px; margin-bottom:16px; filter:brightness(1.8);" />
+      <p>3450 Old Milton Parkway<br />Alpharetta, GA 30005</p>
+      <br />
+      <p><a href="tel:4706104550">(470) 610-4550</a></p>
+    </div>
+    <div>
+      <h4>HOURS</h4>
+      <p>Monday – Friday: 9:00 AM – 5:00 PM</p>
+      <p>Saturday: By Appointment Only</p>
+      <p>Sunday: Closed</p>
+      <br />
+      <h4>QUICK LINKS</h4>
+      <p><a href="index.html">Home</a></p>
+      <p><a href="booking.html">Book Now</a></p>
+    </div>
+    <div>
+      <h4>FIND US</h4>
+      <p style="margin-top:8px; font-size:12px;">
+        <a href="https://maps.app.goo.gl/EPQrHrrZsG3oUBD18" target="_blank">
+          📍 3450 Old Milton Pkwy #100, Alpharetta, GA — Click to open in Google Maps
+        </a>
+      </p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© Copyright 2026 Alpha Aesthetics And Health &nbsp;|&nbsp; <a href="#">Privacy &amp; Disclaimer</a></p>
+    <p style="margin-top:6px; font-size:11px;">Individual results are not guaranteed and may vary from person to person.</p>
+  </div>
+</footer>
+
+<script src="/js/cart-data.js"></script>
+<script src="/js/cart.js"></script>
+</body>
+</html>

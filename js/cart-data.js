@@ -145,6 +145,8 @@ const ALPHA_PRODUCTS = [
   { id: "iv-natural-defense", category: "Hormone & Wellness", subcategory: "IV Therapy", name: "Natural Defense IV", priceDisplay: "$325", priceId: "price_1U3D5gRoQmeJ4W3Hj1u3nEIY", unitBased: false },
   { id: "iv-glutathione-addon", category: "Hormone & Wellness", subcategory: "IV Therapy", name: "Glutathione Add-On", priceDisplay: "$25", priceId: "price_1U3D5iRoQmeJ4W3HnPr697WO", unitBased: false },
   { id: "iv-amino-addon", category: "Hormone & Wellness", subcategory: "IV Therapy", name: "Amino Blend Add-On", priceDisplay: "$25", priceId: "price_1U3D5jRoQmeJ4W3HKsOWXDNn", unitBased: false },
+
+  { id: "muse-consult", category: "Consultations", subcategory: "MUSE Cell", name: "MUSE Cell Consultation Deposit", priceDisplay: "$75", priceId: "price_1U3wu0RoQmeJ4W3H8KPQZUXP", unitBased: false },
 ];
 
 // Make available globally (plain script include, no bundler)
