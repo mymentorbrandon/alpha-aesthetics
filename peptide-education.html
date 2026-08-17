@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ══ SEO META TAGS ══ -->
+  <title>Peptide Compounding Education | Alpha Aesthetics & Health | Alpharetta, GA</title>
+  <meta name="description" content="Learn how peptide compounding works — what compounding pharmacies do, why prescriptions matter, and what questions to ask your provider. Book an education session with Alpha Aesthetics & Health in Alpharetta, GA." />
+  <meta name="keywords" content="peptide compounding Alpharetta, compounding pharmacy education, Alpha Aesthetics" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Alpha Aesthetics & Health" />
+  <link rel="canonical" href="https://mymentorbrandon.github.io/alpha-aesthetics/peptide-education.html" />
+  <link rel="icon" type="image/webp" href="images/logo.webp" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root { --teal: #4a8fa0; --teal-dark: #3a7080; --gray: #8a8a8a; --light: #f7f5f3; --white: #ffffff; --text: #333; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; color: var(--text); background: var(--white); }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .top-banner { background: var(--teal); color: var(--white); text-align: center; padding: 10px 20px; font-size: 13px; letter-spacing: 1px; }
+    .top-banner a { display: inline-block; margin-left: 16px; background: var(--white); color: var(--teal); padding: 5px 16px; border-radius: 2px; font-weight: 700; font-size: 12px; }
+
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 5%; background: var(--white); box-shadow: 0 2px 8px rgba(0,0,0,0.07); position: sticky; top: 0; z-index: 100; }
+    .logo { height: 70px; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 12px; letter-spacing: 2px; font-weight: 600; color: var(--gray); transition: color .2s; }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta { background: var(--teal); color: var(--white) !important; padding: 10px 20px; border-radius: 2px; letter-spacing: 1.5px; font-size: 12px; font-weight: 700; }
+
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.48), rgba(0,0,0,0.48)), url('images/herophoto.jpg') center/cover no-repeat;
+      min-height: 65vh; display: flex; align-items: center; padding: 0 8%;
+    }
+    .hero-inner { max-width: 680px; }
+    .hero-eyebrow { font-size: 11px; letter-spacing: 4px; color: rgba(255,255,255,0.75); font-weight: 600; text-transform: uppercase; margin-bottom: 18px; }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(38px, 6vw, 60px); color: var(--white); line-height: 1.15; margin-bottom: 22px; }
+    .hero h1 span { color: #a8d8e2; }
+    .hero p { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.85); max-width: 540px; margin-bottom: 34px; }
+    .btn-primary { display: inline-block; background: var(--teal); color: var(--white); padding: 14px 36px; font-size: 11px; letter-spacing: 3px; font-weight: 700; border-radius: 2px; transition: background .2s; }
+    .btn-primary:hover { background: var(--teal-dark); }
+
+    section { padding: 80px 8%; }
+    .eyebrow { font-size: 11px; letter-spacing: 4px; font-weight: 700; color: var(--teal); text-transform: uppercase; margin-bottom: 10px; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 4vw, 44px); color: var(--teal-dark); margin-bottom: 22px; line-height: 1.2; }
+    .section-body { font-size: 13.5px; line-height: 1.9; color: #555; max-width: 720px; }
+    .divider { width: 50px; height: 2px; background: var(--teal); margin: 18px 0 28px; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 2px; font-weight: 700; color: var(--teal); margin-bottom: 32px; }
+
+    .how-it-works { background: var(--light); }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; margin-top: 44px; }
+    .step-card { background: var(--white); border-radius: 4px; padding: 36px 28px; border-top: 3px solid var(--teal); box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+    .step-number { font-family: 'Cormorant Garamond', serif; font-size: 44px; color: var(--teal); opacity: 0.3; line-height: 1; margin-bottom: 14px; }
+    .step-card h3 { font-size: 12px; letter-spacing: 2px; font-weight: 700; color: var(--teal-dark); margin-bottom: 12px; text-transform: uppercase; }
+    .step-card p { font-size: 13px; line-height: 1.8; color: #555; }
+
+    .questions { background: var(--white); }
+    .q-list { list-style: none; margin-top: 40px; max-width: 760px; }
+    .q-list li { font-size: 14px; line-height: 1.9; color: #444; padding: 16px 0; border-bottom: 1px solid #eee; padding-left: 28px; position: relative; }
+    .q-list li::before { content: '?'; position: absolute; left: 0; color: var(--teal); font-weight: 700; }
+
+    .faq-section { background: var(--light); }
+    .faq-wrap { max-width: 820px; margin: 40px auto 0; }
+    details { border-bottom: 1px solid #ddd; padding: 4px 0; }
+    summary { padding: 16px 0; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text); }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '+'; font-size: 20px; color: var(--teal); }
+    details[open] summary::after { content: '−'; }
+    details p { font-size: 13px; line-height: 1.8; color: #555; padding-bottom: 16px; }
+
+    .cta-band {
+      background: linear-gradient(rgba(58,112,128,0.93), rgba(58,112,128,0.93)), url('images/herophoto.jpg') center/cover no-repeat;
+      padding: 80px 8%; text-align: center; color: var(--white);
+    }
+    .cta-band h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 4vw, 44px); margin-bottom: 16px; }
+    .cta-band p { font-size: 14px; line-height: 1.8; color: rgba(255,255,255,0.85); max-width: 580px; margin: 0 auto 20px; }
+
+    .disclaimer { background: var(--light); padding: 40px 8%; }
+    .disclaimer p { font-size: 11.5px; line-height: 1.8; color: #888; max-width: 900px; margin: 0 auto; font-style: italic; }
+
+    footer { background: #2a2a2a; color: rgba(255,255,255,0.7); padding: 50px 8% 30px; }
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+    footer h4 { color: var(--white); font-size: 12px; letter-spacing: 3px; margin-bottom: 16px; }
+    footer p, footer a { font-size: 13px; line-height: 1.8; color: rgba(255,255,255,0.65); }
+    footer a:hover { color: var(--teal); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 12px; text-align: center; color: rgba(255,255,255,0.4); }
+
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero { min-height: 55vh; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-banner">
+  Receive 20% off your first treatment!
+  <a href="booking.html">BOOK NOW</a>
+</div>
+
+<nav>
+  <a href="index.html"><img class="logo" src="images/logo.webp" alt="Alpha Aesthetics & Health Logo" /></a>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="index.html#services">SERVICES</a></li>
+    <li><a href="booking.html" class="nav-cta">BOOK NOW</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Understanding Your Options</p>
+    <h1>Peptide <span>Compounding</span>, Explained</h1>
+    <p>
+      A general overview of how compounded medications work — what a compounding pharmacy actually
+      does, why a prescription is part of the process, and the questions worth asking before you
+      consider anything. No specific products, no recommendations — just the process.
+    </p>
+    <a href="booking.html" class="btn-primary">BOOK AN EDUCATION SESSION</a>
+  </div>
+</header>
+
+<section id="how-compounding-works">
+  <a href="index.html" class="back-link">← BACK TO ALL SERVICES</a>
+  <p class="eyebrow">The Basics</p>
+  <h2 class="section-title">What Is Compounding, and How Does It Work?</h2>
+  <div class="divider"></div>
+  <p class="section-body">
+    Compounding is the process by which a licensed pharmacy prepares a customized medication for an
+    individual patient, based on a prescription written by a licensed provider. It's a regulated,
+    long-established part of the healthcare system — used for everything from adjusting a dose to
+    combining ingredients that aren't available in a standard commercial product.
+  </p>
+  <br />
+  <p class="section-body">
+    Compounding pharmacies operate under state and federal oversight, and not every substance can be
+    compounded — pharmacies are limited to ingredients that meet specific regulatory criteria. That's
+    part of why the process always starts with a licensed provider, not a product catalog.
+  </p>
+</section>
+
+<section class="how-it-works">
+  <p class="eyebrow">The Process</p>
+  <h2 class="section-title" style="text-align:center;">How It Actually Works, Step by Step</h2>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-number">01</div>
+      <h3>Provider Evaluation</h3>
+      <p>A licensed provider reviews your health history and goals before anything is discussed further.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">02</div>
+      <h3>Individual Assessment</h3>
+      <p>The provider determines, based on your specific situation, whether a compounded option is appropriate to discuss at all.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">03</div>
+      <h3>Prescription Written</h3>
+      <p>If appropriate, a prescription is written for a specific patient — not a general product offered to anyone.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">04</div>
+      <h3>Pharmacy Compounds It</h3>
+      <p>A licensed compounding pharmacy — not a general product vendor — prepares the medication under regulatory oversight.</p>
+    </div>
+  </div>
+</section>
+
+<section class="questions">
+  <p class="eyebrow">Before You Consider Anything</p>
+  <h2 class="section-title">Questions Worth Asking Your Provider</h2>
+  <div class="divider"></div>
+  <p class="section-body">
+    Whether or not compounding ends up being relevant to you, these are reasonable questions any
+    licensed provider should be able to answer clearly.
+  </p>
+  <ul class="q-list">
+    <li>Is this ingredient one your compounding pharmacy is legally permitted to prepare?</li>
+    <li>Which specific pharmacy is filling this, and are they licensed in my state?</li>
+    <li>What is this prescription based on for me individually, not in general?</li>
+    <li>What are the known risks, and what isn't yet well established?</li>
+    <li>How will my provider monitor me after I start?</li>
+  </ul>
+</section>
+
+<section class="faq-section">
+  <p class="eyebrow">Common Questions</p>
+  <h2 class="section-title">General FAQs</h2>
+  <div class="divider"></div>
+  <div class="faq-wrap">
+
+    <details>
+      <summary>Is compounding the same as buying a product online?</summary>
+      <p>No. Legitimate compounding requires an individual prescription from a licensed provider, filled by a licensed pharmacy — not a general product purchase.</p>
+    </details>
+
+    <details>
+      <summary>Can any pharmacy compound anything a provider prescribes?</summary>
+      <p>No — compounding pharmacies are limited by regulation to specific approved ingredients. Not everything can legally be compounded, even with a prescription.</p>
+    </details>
+
+    <details>
+      <summary>Will this session tell me which specific product to use?</summary>
+      <p>No. This session covers the general process only. Any decision about a specific option requires an individual medical evaluation, which is a separate step.</p>
+    </details>
+
+    <details>
+      <summary>What does the education session cost?</summary>
+      <p>$75, which goes toward understanding the process so you can have an informed conversation with a provider going forward.</p>
+    </details>
+
+  </div>
+</section>
+
+<section class="cta-band">
+  <h2>Want to Understand the Process Better?</h2>
+  <p>
+    Book a general education session with our team in Alpharetta, GA. We'll walk you through how
+    compounding works so you can ask the right questions — no product pitch, just the process.
+  </p>
+  <div style="max-width:420px; margin:20px auto 0; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.25); border-radius:6px; padding:24px;">
+    <p style="font-size:12px; letter-spacing:1px; color:rgba(255,255,255,0.85); margin-bottom:10px;">RESERVE YOUR SPOT ONLINE</p>
+    <p style="font-size:22px; font-weight:700; color:#fff; margin-bottom:14px;">$75 Education Session</p>
+    <button class="alpha-add-to-cart" data-product-id="peptide-education-session" style="background:#fff; color:var(--teal-dark); border:none; padding:12px 28px; border-radius:2px; font-size:11px; letter-spacing:2px; font-weight:700; cursor:pointer;">ADD TO CART</button>
+  </div>
+</section>
+
+<div class="disclaimer">
+  <p>
+    This page is provided for general educational purposes only. It describes the compounding
+    process in general terms and does not recommend, endorse, or evaluate any specific product,
+    ingredient, or treatment. It is not medical advice and does not constitute an offer of any
+    specific treatment. Whether compounding is appropriate for you can only be determined through
+    an individual evaluation with a licensed provider.
+  </p>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <img src="images/logoblackandwhite.png" alt="Alpha Aesthetics & Health" style="height:60px; margin-bottom:16px; filter:brightness(1.8);" />
+      <p>3450 Old Milton Parkway<br />Alpharetta, GA 30005</p>
+      <br />
+      <p><a href="tel:4706104550">(470) 610-4550</a></p>
+    </div>
+    <div>
+      <h4>HOURS</h4>
+      <p>Monday – Friday: 9:00 AM – 5:00 PM</p>
+      <p>Saturday: By Appointment Only</p>
+      <p>Sunday: Closed</p>
+      <br />
+      <h4>QUICK LINKS</h4>
+      <p><a href="index.html">Home</a></p>
+      <p><a href="booking.html">Book Now</a></p>
+    </div>
+    <div>
+      <h4>FIND US</h4>
+      <p style="margin-top:8px; font-size:12px;">
+        <a href="https://maps.app.goo.gl/EPQrHrrZsG3oUBD18" target="_blank">
+          📍 3450 Old Milton Pkwy #100, Alpharetta, GA — Click to open in Google Maps
+        </a>
+      </p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© Copyright 2026 Alpha Aesthetics And Health &nbsp;|&nbsp; <a href="#">Privacy &amp; Disclaimer</a></p>
+    <p style="margin-top:6px; font-size:11px;">Individual results are not guaranteed and may vary from person to person.</p>
+  </div>
+</footer>
+
+<script src="/js/cart-data.js"></script>
+<script src="/js/cart.js"></script>
+</body>
+</html>

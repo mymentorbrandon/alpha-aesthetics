@@ -147,6 +147,7 @@ const ALPHA_PRODUCTS = [
   { id: "iv-amino-addon", category: "Hormone & Wellness", subcategory: "IV Therapy", name: "Amino Blend Add-On", priceDisplay: "$25", priceId: "price_1U3D5jRoQmeJ4W3HKsOWXDNn", unitBased: false },
 
   { id: "muse-consult", category: "Consultations", subcategory: "MUSE Cell", name: "MUSE Cell Consultation Deposit", priceDisplay: "$75", priceId: "price_1U3wu0RoQmeJ4W3H8KPQZUXP", unitBased: false },
+{ id: "peptide-education-session", category: "Consultations", subcategory: "Education", name: "Peptide Compounding Education Session", priceDisplay: "$75", priceId: "price_1U5VAeRoQmeJ4W3HIf7fkmxv", unitBased: false },
 ];
 
 // Make available globally (plain script include, no bundler)
