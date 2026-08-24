@@ -51,7 +51,7 @@ exports.handler = async function (event) {
     };
   }
 
-  const lineItems = payload.lineItems;
+  const lineItems = payload?.lineItems;
   if (!Array.isArray(lineItems) || lineItems.length === 0) {
     return {
       statusCode: 400,

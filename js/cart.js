@@ -18,7 +18,7 @@
 
 (function () {
   const CART_STORAGE_KEY = "alphaCart";
-  const CHECKOUT_ENDPOINT = "/.netlify/functions/create-checkout-session";
+  const CHECKOUT_ENDPOINT = "/api/create-checkout-session";
 
   function getCart() {
     try {

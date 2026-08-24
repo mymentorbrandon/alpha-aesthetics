@@ -5,3 +5,9 @@
 # No build command needed — this is a static HTML site.
 # Netlify will still run `npm install` automatically before deploying,
 # which installs the "stripe" package the function needs.
+
+# Keep /api/* working on Netlify too, so the cart uses one path on both hosts.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
