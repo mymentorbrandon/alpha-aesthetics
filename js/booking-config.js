@@ -32,7 +32,7 @@ const ALPHA_BOOKING = {
    * existing request form, so the page keeps working exactly as before.
    *
    * TO TURN THE CALENDAR ON:
-   * 1. Create a Cal.com team, add both providers as members.
+   * 1. Create a Cal.com team with Dr. Davis as the host.
    * 2. Create one event type per key in `visitTypes` below. The event slug
    *    must match the key, and its duration must match `minutes`.
    * 3. Set the team's availability to the `hours` block below.
@@ -43,16 +43,16 @@ const ALPHA_BOOKING = {
     teamSlug: "", // e.g. "alpha-aesthetics" -> cal.com/team/alpha-aesthetics/<slug>
   },
 
-  // Both providers currently perform every treatment, so the patient may pick
-  // either one or let the clinic assign. When that changes, add an `only`
-  // array to a visitType listing the provider ids that can perform it.
+  /**
+   * Providers who take bookings. Dr. Davis performs the treatments, so she is
+   * the only one on the booking calendar — Dr. Heisser still appears in the
+   * "Our Providers" section of index.html, he just is not bookable here.
+   *
+   * Adding a second provider here brings the "with which provider?" step back
+   * automatically. Restricting individual treatments to one provider is not
+   * built — every provider in this list is offered for every treatment.
+   */
   providers: [
-    {
-      id: "heisser",
-      name: "Dr. Randy Heisser, MD",
-      role: "Family medicine · regenerative & anti-aging",
-      photo: "images/randyheisser.jpg",
-    },
     {
       id: "davis",
       name: "Dr. Laurie Davis, NP",

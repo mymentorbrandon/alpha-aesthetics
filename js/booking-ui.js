@@ -33,7 +33,14 @@
     .map((t) => ({ ...t, product: byId.get(t.id), type: B.visitTypes[t.visit] }))
     .filter((t) => t.product && t.type);
 
-  const state = { treatment: null, provider: "any" };
+  // With a single bookable provider there is nothing to choose, so the picker
+  // is skipped and that provider is the answer. It comes back automatically if
+  // a second one is added to the config.
+  const multiProvider = B.providers.length > 1;
+  const state = {
+    treatment: null,
+    provider: multiProvider ? "any" : B.providers[0]?.id || "",
+  };
 
   function minutesLabel(min) {
     if (min < 60) return `${min} min`;
@@ -67,6 +74,7 @@
   /* ── STEP 2: provider ────────────────────────────────────────────────── */
 
   function providerCards() {
+    if (!multiProvider) return "";
     const any = `
       <label class="prov-card">
         <input type="radio" name="provider" value="any" checked />
@@ -131,26 +139,26 @@
 
   /* ── render ──────────────────────────────────────────────────────────── */
 
-  mount.innerHTML = `
-    <div class="bk-step">
-      <label class="bk-label" for="service"><span class="bk-num">1</span> What treatment are you booking?</label>
-      <div class="select-wrap">
-        <select id="service" name="service" required>${treatmentOptions()}</select>
-      </div>
-      <div class="bk-detail" id="bkDetail" hidden></div>
-    </div>
+  // Steps are numbered from the ones actually rendered, so dropping the provider
+  // picker leaves "1, 2" rather than "1, 3".
+  const steps = [
+    `<label class="bk-label" for="service"><span class="bk-num">%N%</span> What treatment are you booking?</label>
+     <div class="select-wrap">
+       <select id="service" name="service" required>${treatmentOptions()}</select>
+     </div>
+     <div class="bk-detail" id="bkDetail" hidden></div>`,
+    multiProvider
+      ? `<span class="bk-label"><span class="bk-num">%N%</span> With which provider?</span>
+         <div class="prov-grid">${providerCards()}</div>`
+      : null,
+    `<span class="bk-label"><span class="bk-num">%N%</span> Pick your time</span>
+     <div id="cal-embed"></div>
+     <p class="bk-hint" id="bkHint">Select a treatment to see available times.</p>`,
+  ].filter(Boolean);
 
-    <div class="bk-step">
-      <span class="bk-label"><span class="bk-num">2</span> With which provider?</span>
-      <div class="prov-grid">${providerCards()}</div>
-    </div>
-
-    <div class="bk-step">
-      <span class="bk-label"><span class="bk-num">3</span> Pick your time</span>
-      <div id="cal-embed"></div>
-      <p class="bk-hint" id="bkHint">Select a treatment to see available times.</p>
-    </div>
-  `;
+  mount.innerHTML = steps
+    .map((html, i) => `<div class="bk-step">${html.replace("%N%", i + 1)}</div>`)
+    .join("");
 
   const select = document.getElementById("service");
   const detail = document.getElementById("bkDetail");
@@ -173,6 +181,9 @@
     }
     if (t.addOn) {
       extra += `<span class="bk-flag">Add-on &mdash; attaches to an IV therapy visit rather than booked on its own.</span>`;
+    }
+    if (!multiProvider && B.providers[0]) {
+      extra += `<span class="bk-flag">Performed by ${B.providers[0].name}</span>`;
     }
     if (t.note) extra += `<span class="bk-flag">${t.note}</span>`;
     detail.innerHTML = bits.join(" · ") + extra;

@@ -575,7 +575,7 @@
     <div class="form-header">
       <p class="eyebrow">Request Your Appointment</p>
       <h2>Reserve Your Private Consultation</h2>
-      <p>Choose your treatment and provider, then pick a time that works for you.</p>
+      <p>Choose your treatment, then pick a time that works for you.</p>
     </div>
 
     <!-- Steps 1–3: treatment, provider, time. Rendered by js/booking-ui.js. -->
@@ -767,7 +767,7 @@
       phone:        document.getElementById('phone').value,
       clientStatus: document.querySelector('input[name="clientStatus"]:checked')?.value || '',
       service:      document.getElementById('service').selectedOptions[0]?.textContent.trim() || '',
-      provider:     (document.querySelector('input[name="provider"]:checked')?.value) || 'any',
+      provider:     window.ALPHA_BOOKING_STATE?.provider || '',
       duration:     window.ALPHA_BOOKING_STATE?.treatment?.type?.minutes || '',
       preferred:    document.getElementById('preferred').value,
       message:      document.getElementById('message').value,
