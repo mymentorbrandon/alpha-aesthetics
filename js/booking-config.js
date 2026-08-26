@@ -61,8 +61,8 @@ const ALPHA_BOOKING = {
     },
   ],
 
-  // Clinic hours. Saturday is full hours per the owner; the site FAQ still
-  // says "by appointment only", so update index.html to match before launch.
+  // Clinic hours. Saturday runs full hours per the owner; index.html's FAQ and
+  // JSON-LD openingHours were updated to match.
   hours: {
     timeZone: "America/New_York",
     weekly: {
