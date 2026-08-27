@@ -6,13 +6,15 @@
  *   <script src="/js/booking-config.js"></script>
  *   <script src="/js/booking-ui.js"></script>
  *
- * Three steps: pick treatment -> pick provider -> pick a time.
+ * Pick a treatment, then pick a time. A "with which provider?" step appears
+ * between them only when ALPHA_BOOKING.providers holds more than one — today it
+ * holds only Dr. Davis, so the booker renders two steps.
  *
- * Step 3 has two modes. When ALPHA_BOOKING.calcom.enabled is true it mounts the
- * Cal.com calendar for the treatment's visit type, so the patient sees real
- * open slots and books them. Until then it falls back to the request form that
- * was already on this page, pre-filled with the treatment and provider — so the
- * page never regresses while the Cal.com team is being set up.
+ * The final step has two modes. When ALPHA_BOOKING.calcom.enabled is true it
+ * mounts the Cal.com calendar for the treatment's visit type, so the patient
+ * sees real open slots and books them. Until then it falls back to the request
+ * form that was already on this page, pre-filled with the treatment and
+ * provider — so the page never regresses while the Cal.com team is being set up.
  *
  * The treatment <select> deliberately carries id="service", because the existing
  * form submit handler reads that element. Keeping the id means the booker can be
@@ -71,7 +73,7 @@
     return html;
   }
 
-  /* ── STEP 2: provider ────────────────────────────────────────────────── */
+  /* ── OPTIONAL STEP: provider ────────────────────────────────────────────────── */
 
   function providerCards() {
     if (!multiProvider) return "";
@@ -99,7 +101,7 @@
     return any + each;
   }
 
-  /* ── STEP 3: the time slot ───────────────────────────────────────────── */
+  /* ── FINAL STEP: the time slot ───────────────────────────────────────────── */
 
   function calLink(t) {
     const { teamSlug } = B.calcom;
