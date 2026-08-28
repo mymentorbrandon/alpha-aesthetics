@@ -107,35 +107,92 @@
     return `${B.calcom.base}/${t.visit}`;
   }
 
+  /**
+   * Cal.com's official loader. It must define the window.Cal queue stub BEFORE
+   * embed.js arrives — the script throws "Cal is not defined" if you just drop
+   * a plain <script> tag in, because it expects the stub to already be holding
+   * the queued calls.
+   */
   let calLoaded = false;
   function loadCal() {
     if (calLoaded) return;
     calLoaded = true;
-    const s = document.createElement("script");
-    s.src = "https://app.cal.com/embed/embed.js";
-    document.head.appendChild(s);
+    (function (C, A, L) {
+      const p = function (a, ar) { a.q.push(ar); };
+      const d = C.document;
+      C.Cal =
+        C.Cal ||
+        function () {
+          const cal = C.Cal;
+          const ar = arguments;
+          if (!cal.loaded) {
+            cal.ns = {};
+            cal.q = cal.q || [];
+            d.head.appendChild(d.createElement("script")).src = A;
+            cal.loaded = true;
+          }
+          if (ar[0] === L) {
+            const api = function () { p(api, arguments); };
+            const namespace = ar[1];
+            api.q = api.q || [];
+            if (typeof namespace === "string") {
+              cal.ns[namespace] = cal.ns[namespace] || api;
+              p(cal.ns[namespace], ar);
+              p(cal, ["initNamespace", namespace]);
+            } else p(cal, ar);
+            return;
+          }
+          p(cal, ar);
+        };
+    })(window, "https://app.cal.com/embed/embed.js", "init");
+    window.Cal("init", { origin: "https://cal.com" });
+  }
+
+  /**
+   * If the calendar cannot render — Cal.com down, embed blocked by an extension,
+   * offline — the patient must still be able to reach the clinic. Falling back
+   * to the request form beats leaving the final step blank.
+   */
+  const CAL_TIMEOUT_MS = 8000;
+  let calTimer = null;
+
+  function showFormFallback(message) {
+    clearTimeout(calTimer);
+    const host = document.getElementById("cal-embed");
+    if (host) host.innerHTML = "";
+    hint.hidden = false;
+    hint.textContent = message;
+    if (form) form.hidden = false;
   }
 
   function mountCalendar(t) {
     const host = document.getElementById("cal-embed");
     host.innerHTML = "";
     loadCal();
-    // Cal's loader queues calls made before the script finishes, but only once
-    // window.Cal exists, so poll briefly rather than assuming it is ready.
-    const tryMount = () => {
-      if (!window.Cal) return setTimeout(tryMount, 100);
-      window.Cal("inline", {
-        elementOrSelector: "#cal-embed",
-        calLink: calLink(t),
-        config: {
-          // Travels to the clinic on the booking so the provider knows exactly
-          // which of the 58 treatments the patient chose.
-          "metadata[treatment]": t.product.name,
-          "metadata[provider]": state.provider,
-        },
-      });
-    };
-    tryMount();
+    window.Cal("inline", {
+      elementOrSelector: "#cal-embed",
+      calLink: calLink(t),
+      config: {
+        // Cal.com renders dark by default, which reads as a broken widget
+        // dropped onto this light page. Setting it here works; the global
+        // Cal("ui", …) call did not take effect on the inline embed.
+        theme: "light",
+        layout: "month_view",
+        // Travels to the clinic on the booking so the provider knows exactly
+        // which of the 58 treatments the patient chose.
+        "metadata[treatment]": t.product.name,
+        "metadata[provider]": state.provider,
+      },
+    });
+
+    clearTimeout(calTimer);
+    calTimer = setTimeout(() => {
+      if (!host.children.length) {
+        showFormFallback(
+          "The calendar could not load. Send your request instead and we'll confirm your time within 24 hours."
+        );
+      }
+    }, CAL_TIMEOUT_MS);
   }
 
   /* ── render ──────────────────────────────────────────────────────────── */
@@ -196,6 +253,7 @@
     const calOn = B.calcom.enabled && B.calcom.base;
 
     if (!t) {
+      clearTimeout(calTimer);
       hint.hidden = false;
       hint.textContent = "Select a treatment to see available times.";
       if (form) form.hidden = true;

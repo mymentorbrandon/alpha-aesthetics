@@ -9,6 +9,10 @@
  * SAFE TO RE-RUN: it checks which slugs already exist on the public profile and
  * skips them, so running it twice will not create duplicates.
  *
+ * --set-location repairs event types that already exist: Cal.com defaults new
+ * event types to "Cal Video", and every visit here is in person, so a patient
+ * booking Botox would otherwise get a video link instead of the address.
+ *
  * ---------------------------------------------------------------------
  * HOW TO RUN
  * ---------------------------------------------------------------------
@@ -42,6 +46,12 @@ const API = "https://api.cal.com/v2/event-types";
 const API_VERSION = "2024-06-14";
 const PROFILE = ALPHA_BOOKING.calcom.base;
 const DRY_RUN = process.argv.includes("--dry-run");
+const SET_LOCATION = process.argv.includes("--set-location");
+
+// Every visit is in person at the clinic.
+const LOCATIONS = [
+  { type: "address", address: ALPHA_BOOKING.location.address, public: true },
+];
 
 const key = process.env.CAL_API_KEY;
 if (!key) {
@@ -81,6 +91,7 @@ async function createEventType(slug, visit) {
     lengthInMinutes: visit.minutes,
     title: visit.label,
     slug,
+    locations: LOCATIONS,
   };
 
   if (DRY_RUN) return { dryRun: true, body };
@@ -100,7 +111,63 @@ async function createEventType(slug, visit) {
   return JSON.parse(text);
 }
 
+/** The public listing carries the id, so no auth is needed just to find it. */
+async function findEventType(slug) {
+  const res = await fetch(
+    `https://api.cal.com/v2/event-types?username=${PROFILE}&eventSlug=${slug}`,
+    { headers: { "cal-api-version": API_VERSION } }
+  );
+  if (!res.ok) throw new Error(`lookup HTTP ${res.status}`);
+  const json = await res.json();
+  const data = Array.isArray(json.data) ? json.data[0] : json.data;
+  if (!data || !data.id) throw new Error("not found");
+  return data;
+}
+
+async function setLocation(slug) {
+  const et = await findEventType(slug);
+  const current = JSON.stringify(et.locations || []);
+  if (current.includes('"address"')) return { skipped: true };
+  if (DRY_RUN) return { dryRun: true };
+
+  const res = await fetch(`${API}/${et.id}`, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${key}`,
+      "cal-api-version": API_VERSION,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ locations: LOCATIONS }),
+  });
+  const text = await res.text();
+  if (!res.ok) throw new Error(`HTTP ${res.status} — ${text.slice(0, 300)}`);
+  return { patched: true };
+}
+
+async function runSetLocation() {
+  const slugs = Object.keys(ALPHA_BOOKING.visitTypes);
+  console.log(
+    `\nSetting location on ${slugs.length} event types → ${ALPHA_BOOKING.location.address}` +
+      (DRY_RUN ? "  (DRY RUN)\n" : "\n")
+  );
+  let done = 0, skipped = 0;
+  const failed = [];
+  for (const slug of slugs) {
+    try {
+      const r = await setLocation(slug);
+      if (r.skipped) { console.log(`  ⊙ skip    ${slug} — already in person`); skipped++; }
+      else { console.log(`  ${DRY_RUN ? "· would set" : "✓ set     "} ${slug}`); done++; }
+    } catch (err) {
+      console.log(`  ✗ FAILED  ${slug} — ${err.message}`);
+      failed.push(slug);
+    }
+  }
+  console.log(`\n${done} ${DRY_RUN ? "would be updated" : "updated"}, ${skipped} skipped, ${failed.length} failed.`);
+  if (failed.length) { console.log(`Failed: ${failed.join(", ")}`); process.exit(1); }
+}
+
 async function main() {
+  if (SET_LOCATION) return runSetLocation();
   const entries = Object.entries(ALPHA_BOOKING.visitTypes);
   console.log(
     `\n${entries.length} visit types in booking-config.js → cal.com/${PROFILE}/<slug>` +

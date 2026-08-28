@@ -38,6 +38,9 @@ const ALPHA_BOOKING = {
    * 3. Put the account base here and flip `enabled` to true.
    */
   calcom: {
+    // Stays off until scripts/create-cal-event-types.js --set-location has run.
+    // Cal.com created all 23 event types defaulting to "Cal Video"; shipping
+    // that would email a patient a video link for an in-person procedure.
     enabled: false,
     /**
      * What goes before the visit slug in the Cal.com URL. The booker builds
@@ -66,6 +69,15 @@ const ALPHA_BOOKING = {
       photo: "images/lauriedavis.jpg",
     },
   ],
+
+  /**
+   * Where the appointment happens. Every visit is in person — Cal.com defaults
+   * new event types to "Cal Video", which would send a patient booking Botox a
+   * video link instead of the clinic address.
+   */
+  location: {
+    address: "3450 Old Milton Parkway, Suite 100, Alpharetta, GA 30005",
+  },
 
   // Clinic hours. Saturday runs full hours per the owner; index.html's FAQ and
   // JSON-LD openingHours were updated to match.
