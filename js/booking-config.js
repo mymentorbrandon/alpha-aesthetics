@@ -32,15 +32,21 @@ const ALPHA_BOOKING = {
    * existing request form, so the page keeps working exactly as before.
    *
    * TO TURN THE CALENDAR ON:
-   * 1. Create a Cal.com team with Dr. Davis as the host.
-   * 2. Create one event type per key in `visitTypes` below. The event slug
-   *    must match the key, and its duration must match `minutes`.
-   * 3. Set the team's availability to the `hours` block below.
-   * 4. Put the team slug here and flip `enabled` to true.
+   * 1. Create one event type per key in `visitTypes` below. The event slug must
+   *    match the key, and its duration must match `minutes`.
+   * 2. Set availability to the `hours` block below.
+   * 3. Put the account base here and flip `enabled` to true.
    */
   calcom: {
     enabled: false,
-    teamSlug: "", // e.g. "alpha-aesthetics" -> cal.com/team/alpha-aesthetics/<slug>
+    /**
+     * What goes before the visit slug in the Cal.com URL. The booker builds
+     * cal.com/<base>/<visit-slug>, so this is:
+     *   - a personal username on the Free plan  -> "laurie-davis"
+     *   - "team/<team-slug>" on the Teams plan  -> "team/alpha-aesthetics"
+     * One provider takes bookings today, so the Free plan covers this.
+     */
+    base: "",
   },
 
   /**

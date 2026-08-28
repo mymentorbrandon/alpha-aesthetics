@@ -104,8 +104,7 @@
   /* ── FINAL STEP: the time slot ───────────────────────────────────────────── */
 
   function calLink(t) {
-    const { teamSlug } = B.calcom;
-    return `${teamSlug}/${t.visit}`;
+    return `${B.calcom.base}/${t.visit}`;
   }
 
   let calLoaded = false;
@@ -194,7 +193,7 @@
 
   function renderStep3() {
     const t = state.treatment;
-    const calOn = B.calcom.enabled && B.calcom.teamSlug;
+    const calOn = B.calcom.enabled && B.calcom.base;
 
     if (!t) {
       hint.hidden = false;
