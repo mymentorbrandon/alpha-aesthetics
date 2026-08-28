@@ -46,7 +46,7 @@ const ALPHA_BOOKING = {
      *   - "team/<team-slug>" on the Teams plan  -> "team/alpha-aesthetics"
      * One provider takes bookings today, so the Free plan covers this.
      */
-    base: "",
+    base: "alphaaesthetics",
   },
 
   /**
