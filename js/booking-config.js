@@ -38,10 +38,7 @@ const ALPHA_BOOKING = {
    * 3. Put the account base here and flip `enabled` to true.
    */
   calcom: {
-    // Stays off until scripts/create-cal-event-types.js --set-location has run.
-    // Cal.com created all 23 event types defaulting to "Cal Video"; shipping
-    // that would email a patient a video link for an in-person procedure.
-    enabled: false,
+    enabled: true,
     /**
      * What goes before the visit slug in the Cal.com URL. The booker builds
      * cal.com/<base>/<visit-slug>, so this is:
