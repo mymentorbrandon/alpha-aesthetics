@@ -9,9 +9,10 @@
  * SAFE TO RE-RUN: it checks which slugs already exist on the public profile and
  * skips them, so running it twice will not create duplicates.
  *
- * --set-location repairs event types that already exist: Cal.com defaults new
- * event types to "Cal Video", and every visit here is in person, so a patient
- * booking Botox would otherwise get a video link instead of the address.
+ * --sync repairs event types that already exist, bringing their duration and
+ * location back in line with booking-config.js. Run it after changing any
+ * `minutes` value — if Cal.com and the config disagree, the site advertises one
+ * length and the calendar books another.
  *
  * ---------------------------------------------------------------------
  * HOW TO RUN
@@ -46,7 +47,7 @@ const API = "https://api.cal.com/v2/event-types";
 const API_VERSION = "2024-06-14";
 const PROFILE = ALPHA_BOOKING.calcom.base;
 const DRY_RUN = process.argv.includes("--dry-run");
-const SET_LOCATION = process.argv.includes("--set-location");
+const SYNC = process.argv.includes("--sync") || process.argv.includes("--set-location");
 
 // Every visit is in person at the clinic.
 const LOCATIONS = [
@@ -124,11 +125,22 @@ async function findEventType(slug) {
   return data;
 }
 
-async function setLocation(slug) {
+async function syncEventType(slug, visit) {
   const et = await findEventType(slug);
-  const current = JSON.stringify(et.locations || []);
-  if (current.includes('"address"')) return { skipped: true };
-  if (DRY_RUN) return { dryRun: true };
+  const body = {};
+  const changes = [];
+
+  if (!JSON.stringify(et.locations || []).includes('"address"')) {
+    body.locations = LOCATIONS;
+    changes.push("location");
+  }
+  if (et.lengthInMinutes !== visit.minutes) {
+    body.lengthInMinutes = visit.minutes;
+    changes.push(`${et.lengthInMinutes}→${visit.minutes} min`);
+  }
+
+  if (!changes.length) return { skipped: true };
+  if (DRY_RUN) return { changes };
 
   const res = await fetch(`${API}/${et.id}`, {
     method: "PATCH",
@@ -137,26 +149,26 @@ async function setLocation(slug) {
       "cal-api-version": API_VERSION,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ locations: LOCATIONS }),
+    body: JSON.stringify(body),
   });
   const text = await res.text();
   if (!res.ok) throw new Error(`HTTP ${res.status} — ${text.slice(0, 300)}`);
-  return { patched: true };
+  return { changes };
 }
 
-async function runSetLocation() {
-  const slugs = Object.keys(ALPHA_BOOKING.visitTypes);
+async function runSync() {
+  const entries = Object.entries(ALPHA_BOOKING.visitTypes);
   console.log(
-    `\nSetting location on ${slugs.length} event types → ${ALPHA_BOOKING.location.address}` +
+    `\nSyncing ${entries.length} event types with booking-config.js` +
       (DRY_RUN ? "  (DRY RUN)\n" : "\n")
   );
   let done = 0, skipped = 0;
   const failed = [];
-  for (const slug of slugs) {
+  for (const [slug, visit] of entries) {
     try {
-      const r = await setLocation(slug);
-      if (r.skipped) { console.log(`  ⊙ skip    ${slug} — already in person`); skipped++; }
-      else { console.log(`  ${DRY_RUN ? "· would set" : "✓ set     "} ${slug}`); done++; }
+      const r = await syncEventType(slug, visit);
+      if (r.skipped) { console.log(`  ⊙ skip    ${slug} — already matches`); skipped++; }
+      else { console.log(`  ${DRY_RUN ? "· would fix" : "✓ synced  "} ${slug} — ${r.changes.join(", ")}`); done++; }
     } catch (err) {
       console.log(`  ✗ FAILED  ${slug} — ${err.message}`);
       failed.push(slug);
@@ -167,7 +179,7 @@ async function runSetLocation() {
 }
 
 async function main() {
-  if (SET_LOCATION) return runSetLocation();
+  if (SYNC) return runSync();
   const entries = Object.entries(ALPHA_BOOKING.visitTypes);
   console.log(
     `\n${entries.length} visit types in booking-config.js → cal.com/${PROFILE}/<slug>` +

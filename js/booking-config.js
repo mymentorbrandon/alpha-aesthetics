@@ -17,9 +17,11 @@
  * citations behind each one). Four of them came from the clinic's own product
  * names, which already state the time, and those are marked `clinicStated`.
  *
- * Each duration is TOTAL CHAIR TIME, not just the procedure. That matters:
- * Virtue RF and PDO need 30–45 min of topical anesthetic before anything
- * starts, so booking only the procedure time would double-book the room.
+ * Durations are capped to the 30–60 min range the clinic asked for. They are
+ * therefore PROCEDURE TIME, not total chair time: Virtue RF and PDO need
+ * 30–45 min of topical anesthetic, and that no longer fits inside the booked
+ * block, so the clinic must apply numbing outside the appointment window or
+ * these slots will run over into each other.
  *
  * TO ADJUST: change `minutes` here, then change the matching Cal.com event
  * type's duration to the same number. They must agree or the calendar will
@@ -97,24 +99,24 @@ const ALPHA_BOOKING = {
     "neurotoxins":      { minutes: 30, label: "Botox / Dysport" },
     "dermal-fillers":          { minutes: 45, label: "Dermal fillers" },
     "pdo-single-area":          { minutes: 60, label: "PDO Smooth Lift — single area" },
-    "pdo-thread-lift-full":      { minutes: 90, label: "Full PDO Thread Lift" },
-    "virtue-rf-face":     { minutes: 90, label: "Virtue RF — face" },
-    "virtue-rf-face-extended": { minutes: 120, label: "Virtue RF — extended face" },
-    "virtue-rf-small-area":   { minutes: 75, label: "Virtue RF — small area" },
-    "virtue-rf-medium-area":   { minutes: 105, label: "Virtue RF — medium area" },
-    "virtue-rf-large-area":   { minutes: 120, label: "Virtue RF — large area" },
+    "pdo-thread-lift-full":      { minutes: 60, label: "Full PDO Thread Lift" },
+    "virtue-rf-face":     { minutes: 60, label: "Virtue RF — face" },
+    "virtue-rf-face-extended": { minutes: 60, label: "Virtue RF — extended face" },
+    "virtue-rf-small-area":   { minutes: 60, label: "Virtue RF — small area" },
+    "virtue-rf-medium-area":   { minutes: 60, label: "Virtue RF — medium area" },
+    "virtue-rf-large-area":   { minutes: 60, label: "Virtue RF — large area" },
     "physiq":            { minutes: 30, label: "PHYSIQ — single session" },
     "vi-peel":           { minutes: 30, label: "VI Peel" },
     "vi-peel-body-large":    { minutes: 45, label: "VI Peel Body — large area" },
     "facial-30":         { minutes: 30, label: "Facial — 30 min" },
     "facial-45":         { minutes: 45, label: "Facial — 45 min" },
     "facial-60":         { minutes: 60, label: "Facial — 60 min" },
-    "red-light":         { minutes: 20, label: "Red Light Therapy" },
+    "red-light":         { minutes: 30, label: "Red Light Therapy" },
     "iv-therapy":        { minutes: 60, label: "IV therapy" },
-    "labs":              { minutes: 15, label: "Lab draw" },
+    "labs":              { minutes: 30, label: "Lab draw" },
     "pellets":           { minutes: 30, label: "Pellet insertion" },
-    "injection":         { minutes: 15, label: "Injection" },
-    "weight-loss-followup":  { minutes: 20, label: "Weight loss follow-up" },
+    "injection":         { minutes: 30, label: "Injection" },
+    "weight-loss-followup":  { minutes: 30, label: "Weight loss follow-up" },
     "education-session":         { minutes: 60, label: "Education session" },
   },
 
@@ -140,27 +142,27 @@ const ALPHA_BOOKING = {
     { id: "restylane-contour", visit: "dermal-fillers" },
     { id: "restylane-l", visit: "dermal-fillers" },
 
-    { id: "pdo-full", visit: "pdo-thread-lift-full", note: "Includes time for topical numbing." },
-    { id: "pdo-nasolabial", visit: "pdo-single-area", note: "Includes time for topical numbing." },
-    { id: "pdo-marionette", visit: "pdo-single-area", note: "Includes time for topical numbing." },
-    { id: "pdo-eye-trough", visit: "pdo-single-area", note: "Includes time for topical numbing." },
-    { id: "pdo-lips", visit: "pdo-single-area", note: "Includes time for topical numbing." },
+    { id: "pdo-full", visit: "pdo-thread-lift-full", note: "Topical numbing is applied before your appointment time." },
+    { id: "pdo-nasolabial", visit: "pdo-single-area", note: "Topical numbing is applied before your appointment time." },
+    { id: "pdo-marionette", visit: "pdo-single-area", note: "Topical numbing is applied before your appointment time." },
+    { id: "pdo-eye-trough", visit: "pdo-single-area", note: "Topical numbing is applied before your appointment time." },
+    { id: "pdo-lips", visit: "pdo-single-area", note: "Topical numbing is applied before your appointment time." },
 
     // ---------------- BODY CONTOURING ----------------
     { id: "physiq-single", visit: "physiq" },
     { id: "physiq-5session", visit: "physiq", packageOf: 5 },
 
-    { id: "virtue-face", visit: "virtue-rf-face", note: "Includes 45 min of topical numbing before treatment." },
-    { id: "virtue-face-neck", visit: "virtue-rf-face-extended", note: "Includes 45 min of topical numbing before treatment." },
-    { id: "virtue-face-neck-chest", visit: "virtue-rf-face-extended", note: "Includes 45 min of topical numbing before treatment." },
+    { id: "virtue-face", visit: "virtue-rf-face", note: "Topical numbing is applied before your appointment time." },
+    { id: "virtue-face-neck", visit: "virtue-rf-face-extended", note: "Topical numbing is applied before your appointment time." },
+    { id: "virtue-face-neck-chest", visit: "virtue-rf-face-extended", note: "Topical numbing is applied before your appointment time." },
 
-    { id: "virtue-submental", visit: "virtue-rf-small-area", note: "Includes time for topical numbing." },
-    { id: "virtue-scars", visit: "virtue-rf-small-area", note: "Includes time for topical numbing." },
-    { id: "virtue-arms", visit: "virtue-rf-medium-area", note: "Includes time for topical numbing." },
-    { id: "virtue-stretch-marks", visit: "virtue-rf-medium-area", note: "Includes time for topical numbing." },
-    { id: "virtue-abdomen", visit: "virtue-rf-large-area", note: "Includes time for topical numbing." },
-    { id: "virtue-thighs", visit: "virtue-rf-large-area", note: "Includes time for topical numbing." },
-    { id: "virtue-buttox", visit: "virtue-rf-large-area", note: "Includes time for topical numbing." },
+    { id: "virtue-submental", visit: "virtue-rf-small-area", note: "Topical numbing is applied before your appointment time." },
+    { id: "virtue-scars", visit: "virtue-rf-small-area", note: "Topical numbing is applied before your appointment time." },
+    { id: "virtue-arms", visit: "virtue-rf-medium-area", note: "Topical numbing is applied before your appointment time." },
+    { id: "virtue-stretch-marks", visit: "virtue-rf-medium-area", note: "Topical numbing is applied before your appointment time." },
+    { id: "virtue-abdomen", visit: "virtue-rf-large-area", note: "Topical numbing is applied before your appointment time." },
+    { id: "virtue-thighs", visit: "virtue-rf-large-area", note: "Topical numbing is applied before your appointment time." },
+    { id: "virtue-buttox", visit: "virtue-rf-large-area", note: "Topical numbing is applied before your appointment time." },
 
     // ---------------- SKIN TREATMENTS ----------------
     { id: "vi-peel", visit: "vi-peel", note: "You leave with the peel on and rinse it off 4 hours later." },

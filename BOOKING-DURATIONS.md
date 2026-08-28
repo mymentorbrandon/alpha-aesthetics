@@ -1,5 +1,62 @@
 # Duraciones de tratamiento — referencia para la agenda
 
+**Actualizado: la clínica pidió que todas las duraciones queden entre 30 y 60
+minutos.** Los valores investigados abajo se conservan como referencia, pero las
+duraciones vigentes son las recortadas a ese rango en
+[`js/booking-config.js`](js/booking-config.js).
+
+Eso cambia lo que significa la duración. Antes era **tiempo total de silla**,
+incluyendo la anestesia tópica. Ya no cabe: Virtue RF rostro pasó de 90 a 60
+minutos y su anestesia sola toma 45. Las duraciones vigentes son **tiempo de
+procedimiento**, así que la clínica tiene que aplicar la anestesia **fuera del
+bloque agendado** — en otra sala, o pidiendo al paciente que llegue antes. Si se
+aplica dentro de la cita, las citas se van a encimar.
+
+Fuente de verdad: [`js/booking-config.js`](js/booking-config.js). Si cambias un
+número acá, corre `node scripts/create-cal-event-types.js --sync` para que
+Cal.com quede igual, o el sitio anuncia una duración y el calendario reserva otra.
+
+## Duraciones vigentes
+
+| Tipo de visita | Vigente | Investigado | Recorte |
+|---|---|---|---|
+| Botox / Dysport | 30 | 30 | — |
+| Rellenos Restylane | 45 | 45 | — |
+| Consulta inicial | 45 | 45 | — |
+| PDO Smooth Lift (una zona) | 60 | 60 | — |
+| PDO Thread Lift completo | 60 | 90 | ↓ 30 |
+| Virtue RF rostro | 60 | 90 | ↓ 30 |
+| Virtue RF rostro extendido | 60 | 120 | ↓ 60 |
+| Virtue RF zona pequeña | 60 | 75 | ↓ 15 |
+| Virtue RF zona mediana | 60 | 105 | ↓ 45 |
+| Virtue RF zona grande | 60 | 120 | ↓ 60 |
+| PHYSIQ | 30 | 30 | — |
+| VI Peel | 30 | 30 | — |
+| VI Peel Body grande | 45 | 45 | — |
+| Facial 30 / 45 / 60 | 30 / 45 / 60 | igual | — |
+| Red Light Therapy | 30 | 20 | ↑ 10 |
+| Terapia IV | 60 | 60 | — |
+| Extracción de laboratorio | 30 | 15 | ↑ 15 |
+| Inserción de pellets | 30 | 30 | — |
+| Inyección | 30 | 15 | ↑ 15 |
+| Seguimiento de peso | 30 | 20 | ↑ 10 |
+| Sesión educativa | 60 | 60 | — |
+
+**Los seis recortes de Virtue RF y PDO son los que hay que vigilar.** Son los
+tratamientos con anestesia previa y los que más tiempo de sala ocupan.
+
+**Red Light Therapy tiene un conflicto visible:** el producto se llama
+"Red Light Therapy – Single Session (20 min)" pero ahora reserva 30. El paciente
+ve las dos cifras juntas en el selector. Conviene cambiar el nombre del producto
+en Stripe y en `js/cart-data.js`, o dejar ese en 20.
+
+---
+
+## Investigación original
+
+Lo que sigue es la investigación previa al recorte, conservada porque explica de
+dónde salieron los números y sigue siendo la referencia si la clínica reconsidera.
+
 La clínica no tenía tiempos medidos. Estas duraciones se tomaron de tiempos
 publicados por med spas y fabricantes, y son **valores de referencia para
 arrancar**, no números de Alpha Aesthetics. Un profesional de la clínica debe
