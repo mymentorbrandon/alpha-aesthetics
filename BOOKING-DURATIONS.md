@@ -1,7 +1,8 @@
 # Duraciones de tratamiento — referencia para la agenda
 
 **Actualizado: la clínica pidió que todas las duraciones queden entre 30 y 60
-minutos.** Los valores investigados abajo se conservan como referencia, pero las
+minutos**, con una excepción: Red Light Therapy se queda en los 20 minutos que
+declara su propio nombre de producto. Los valores investigados abajo se conservan como referencia, pero las
 duraciones vigentes son las recortadas a ese rango en
 [`js/booking-config.js`](js/booking-config.js).
 
@@ -34,7 +35,7 @@ Cal.com quede igual, o el sitio anuncia una duración y el calendario reserva ot
 | VI Peel | 30 | 30 | — |
 | VI Peel Body grande | 45 | 45 | — |
 | Facial 30 / 45 / 60 | 30 / 45 / 60 | igual | — |
-| Red Light Therapy | 30 | 20 | ↑ 10 |
+| Red Light Therapy | 20 | 20 | — |
 | Terapia IV | 60 | 60 | — |
 | Extracción de laboratorio | 30 | 15 | ↑ 15 |
 | Inserción de pellets | 30 | 30 | — |
@@ -45,10 +46,9 @@ Cal.com quede igual, o el sitio anuncia una duración y el calendario reserva ot
 **Los seis recortes de Virtue RF y PDO son los que hay que vigilar.** Son los
 tratamientos con anestesia previa y los que más tiempo de sala ocupan.
 
-**Red Light Therapy tiene un conflicto visible:** el producto se llama
-"Red Light Therapy – Single Session (20 min)" pero ahora reserva 30. El paciente
-ve las dos cifras juntas en el selector. Conviene cambiar el nombre del producto
-en Stripe y en `js/cart-data.js`, o dejar ese en 20.
+**Red Light Therapy queda fuera del rango a propósito.** El producto se llama
+"Red Light Therapy – Single Session (20 min)"; subirlo a 30 habría mostrado las
+dos cifras contradiciéndose en el selector. Se dejó en 20.
 
 ---
 

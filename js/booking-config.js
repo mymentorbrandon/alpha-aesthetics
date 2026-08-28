@@ -17,7 +17,9 @@
  * citations behind each one). Four of them came from the clinic's own product
  * names, which already state the time, and those are marked `clinicStated`.
  *
- * Durations are capped to the 30–60 min range the clinic asked for. They are
+ * Durations are capped to the 30–60 min range the clinic asked for, except Red
+ * Light Therapy, which the clinic kept at the 20 min its product name states.
+ * They are
  * therefore PROCEDURE TIME, not total chair time: Virtue RF and PDO need
  * 30–45 min of topical anesthetic, and that no longer fits inside the booked
  * block, so the clinic must apply numbing outside the appointment window or
@@ -111,7 +113,9 @@ const ALPHA_BOOKING = {
     "facial-30":         { minutes: 30, label: "Facial — 30 min" },
     "facial-45":         { minutes: 45, label: "Facial — 45 min" },
     "facial-60":         { minutes: 60, label: "Facial — 60 min" },
-    "red-light":         { minutes: 30, label: "Red Light Therapy" },
+    // 20 min per the clinic: the product name says so, and the 30-min floor
+    // would have contradicted it on screen.
+    "red-light":         { minutes: 20, label: "Red Light Therapy" },
     "iv-therapy":        { minutes: 60, label: "IV therapy" },
     "labs":              { minutes: 30, label: "Lab draw" },
     "pellets":           { minutes: 30, label: "Pellet insertion" },
