@@ -173,12 +173,27 @@ module.exports = async (req, res) => {
     return res.status(200).send("Ignored");
   }
 
+  /**
+   * Stripe's newer event destinations can send a reduced payload that carries
+   * only a reference instead of the full object. Everything below re-reads the
+   * session from Stripe anyway, so all this needs is the id — take it from
+   * whichever shape arrived rather than depending on that dashboard setting.
+   */
+  const sessionId = event.data?.object?.id || event.related_object?.id;
+  if (!sessionId) {
+    console.error(
+      "stripe-webhook: event carried no checkout session id —",
+      JSON.stringify(event).slice(0, 300)
+    );
+    return res.status(200).send("No session id");
+  }
+
   // Acknowledge before emailing. Stripe retries on a non-2xx, and a Resend
   // outage should not make it redeliver an order the clinic already has.
   res.status(200).send("OK");
 
   try {
-    const session = await stripe.checkout.sessions.retrieve(event.data.object.id);
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
     const items = await stripe.checkout.sessions.listLineItems(session.id, { limit: 100 });
     await sendEmail(buildEmail(session, items.data));
     console.log(`stripe-webhook: emailed order ${session.id} to ${TO}`);
