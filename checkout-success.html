@@ -25,6 +25,24 @@
     }
     h1 { font-size: 22px; margin-bottom: 12px; }
     p { color: #555; line-height: 1.5; }
+    .order {
+      margin: 22px 0 0;
+      border-top: 1px solid #e6e2dd;
+      padding-top: 16px;
+      text-align: left;
+      font-size: 14px;
+    }
+    .order table { width: 100%; border-collapse: collapse; }
+    .order td { padding: 5px 0; color: #444; }
+    .order td.qty { text-align: center; color: #8a8a8a; width: 40px; }
+    .order td.amt { text-align: right; white-space: nowrap; }
+    .order tr.total td {
+      border-top: 1px solid #e6e2dd;
+      padding-top: 10px;
+      font-weight: 700;
+      color: #111;
+    }
+    .muted { color: #8a8a8a; font-size: 13px; }
     a.button {
       display: inline-block;
       margin-top: 20px;
@@ -38,14 +56,84 @@
 </head>
 <body>
   <div class="card">
-    <h1>✅ Payment Received — Thank You!</h1>
-    <p>
-      Your payment was processed successfully. A confirmation email with your
-      receipt is on its way from Stripe. Our team will follow up shortly to
-      confirm your appointment details.
-    </p>
-    <p>Questions? Call us at <a href="tel:4706104550">(470) 610-4550</a>.</p>
+    <h1 id="heading">Confirming your payment…</h1>
+    <p id="blurb">One moment while we check with Stripe.</p>
+    <div class="order" id="order" hidden></div>
+    <p class="muted">Questions? Call us at <a href="tel:4706104550">(470) 610-4550</a>.</p>
     <a class="button" href="/index.html">Return to Home</a>
   </div>
+
+<script>
+/**
+ * The page used to congratulate anyone who opened this URL, whether or not a
+ * payment existed. It now asks Stripe about the session id it was redirected
+ * with and shows the real order.
+ */
+(function () {
+  const heading = document.getElementById('heading');
+  const blurb = document.getElementById('blurb');
+  const order = document.getElementById('order');
+
+  const money = (cents, currency) =>
+    new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: (currency || 'usd').toUpperCase(),
+    }).format((cents || 0) / 100);
+
+  function settle(title, text) {
+    heading.textContent = title;
+    blurb.textContent = text;
+  }
+
+  const sessionId = new URLSearchParams(location.search).get('session_id');
+  if (!sessionId) {
+    settle(
+      'Thank you',
+      "If you just paid, your receipt is on its way from Stripe. We'll follow up to confirm your appointment details."
+    );
+    return;
+  }
+
+  fetch('/api/checkout-session?session_id=' + encodeURIComponent(sessionId))
+    .then((r) => (r.ok ? r.json() : Promise.reject(new Error('lookup failed'))))
+    .then((data) => {
+      if (!data.paid) {
+        settle(
+          'Payment not completed',
+          'Stripe has not confirmed this payment. Nothing has been charged — please try again or call us.'
+        );
+        return;
+      }
+
+      settle(
+        '✅ Payment received — thank you!',
+        'Your receipt is on its way from Stripe' +
+          (data.email ? ' to ' + data.email : '') +
+          ". We'll follow up shortly to confirm your appointment details."
+      );
+
+      const rows = data.items
+        .map(
+          (i) =>
+            '<tr><td>' + i.name + '</td><td class="qty">x' + i.quantity +
+            '</td><td class="amt">' + money(i.amountTotal, data.currency) + '</td></tr>'
+        )
+        .join('');
+      order.innerHTML =
+        '<table>' + rows +
+        '<tr class="total"><td>Total</td><td></td><td class="amt">' +
+        money(data.amountTotal, data.currency) + '</td></tr></table>';
+      order.hidden = false;
+    })
+    .catch(() => {
+      // Never leave the buyer staring at "Confirming…" — the payment itself is
+      // safe in Stripe regardless of whether this lookup worked.
+      settle(
+        'Thank you',
+        "We couldn't load the order summary, but your payment went through and your receipt is on its way from Stripe."
+      );
+    });
+})();
+</script>
 </body>
 </html>

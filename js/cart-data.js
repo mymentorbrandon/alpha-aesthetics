@@ -150,5 +150,8 @@ const ALPHA_PRODUCTS = [
 { id: "peptide-education-session", category: "Consultations", subcategory: "Education", name: "Peptide Compounding Education Session", priceDisplay: "$75", priceId: "price_1U5VAeRoQmeJ4W3HIf7fkmxv", unitBased: false },
 ];
 
-// Make available globally (plain script include, no bundler)
-window.ALPHA_PRODUCTS = ALPHA_PRODUCTS;
+// Make available globally (plain script include, no bundler). The Node guard
+// lets the serverless functions require this file as the one catalog, so the
+// server never has to trust the browser about what a price ID actually is.
+if (typeof window !== "undefined") window.ALPHA_PRODUCTS = ALPHA_PRODUCTS;
+if (typeof module !== "undefined") module.exports = { ALPHA_PRODUCTS };

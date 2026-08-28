@@ -23,6 +23,17 @@
  */
 
 const Stripe = require("stripe");
+const { ALPHA_PRODUCTS } = require("../../js/cart-data.js");
+
+/**
+ * Which catalog categories are physical goods that have to be posted to the
+ * patient. Everything else is a service performed at the clinic.
+ */
+const SHIPPABLE = /Skincare Products|Supplements|Cleansers|Moisturizers|Serums|Brightening/;
+
+const SHIPPABLE_PRICE_IDS = new Set(
+  ALPHA_PRODUCTS.filter((p) => SHIPPABLE.test(p.category)).map((p) => p.priceId)
+);
 
 exports.handler = async function (event) {
   if (event.httpMethod !== "POST") {
@@ -72,6 +83,13 @@ exports.handler = async function (event) {
     stripeLineItems.push({ price: item.priceId, quantity });
   }
 
+  // Decided from the catalog, not from anything the browser sent. A cart that
+  // wrongly claims it needs no shipping would leave the clinic holding a paid
+  // order with nowhere to post it.
+  const needsShipping = stripeLineItems.some((li) =>
+    SHIPPABLE_PRICE_IDS.has(li.price)
+  );
+
   const origin =
     process.env.SITE_URL ||
     event.headers.origin ||
@@ -85,6 +103,11 @@ exports.handler = async function (event) {
       cancel_url: `${origin}/checkout-cancelled.html`,
       // Collects billing address; useful for receipts/records.
       billing_address_collection: "auto",
+      // Only asked for when the order contains something to post.
+      ...(needsShipping
+        ? { shipping_address_collection: { allowed_countries: ["US"] } }
+        : {}),
+      phone_number_collection: { enabled: true },
     });
 
     return {
