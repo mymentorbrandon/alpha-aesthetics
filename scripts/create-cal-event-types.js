@@ -54,6 +54,14 @@ const LOCATIONS = [
   { type: "address", address: ALPHA_BOOKING.location.address, public: true },
 ];
 
+/**
+ * Show every visitor the clinic's own timezone instead of their device's.
+ * Without this, someone booking from another timezone sees the slot converted
+ * to theirs and gets a confirmation in that timezone — for an appointment they
+ * have to physically attend in Alpharetta. They would arrive hours off.
+ */
+const LOCK_TIMEZONE = true;
+
 const key = process.env.CAL_API_KEY;
 if (!key) {
   console.error(
@@ -93,6 +101,7 @@ async function createEventType(slug, visit) {
     title: visit.label,
     slug,
     locations: LOCATIONS,
+    lockTimeZoneToggleOnBookingPage: LOCK_TIMEZONE,
   };
 
   if (DRY_RUN) return { dryRun: true, body };
@@ -137,6 +146,10 @@ async function syncEventType(slug, visit) {
   if (et.lengthInMinutes !== visit.minutes) {
     body.lengthInMinutes = visit.minutes;
     changes.push(`${et.lengthInMinutes}→${visit.minutes} min`);
+  }
+  if (et.lockTimeZoneToggleOnBookingPage !== LOCK_TIMEZONE) {
+    body.lockTimeZoneToggleOnBookingPage = LOCK_TIMEZONE;
+    changes.push("lock timezone");
   }
 
   if (!changes.length) return { skipped: true };
