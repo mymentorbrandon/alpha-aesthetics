@@ -28,6 +28,15 @@ const Stripe = require("stripe");
 const TO = process.env.ORDER_EMAIL_TO || "mhouse3@comcast.net";
 const FROM = process.env.ORDER_EMAIL_FROM || "onboarding@resend.dev";
 
+/**
+ * Resend's shared testing sender only delivers to the address the Resend
+ * account was registered with. That is fine for the clinic — point
+ * ORDER_EMAIL_TO at that same address — but a patient's own address will always
+ * be rejected, so skip that send and say why instead of collecting a 403 on
+ * every order. Verifying a domain and setting ORDER_EMAIL_FROM lifts this.
+ */
+const SHARED_TEST_SENDER = FROM.endsWith("@resend.dev");
+
 function money(cents, currency) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -260,13 +269,20 @@ module.exports = async (req, res) => {
     const jobs = [
       { label: `clinic <${TO}>`, p: sendEmail(TO, buildAdminEmail(session, items.data)) },
     ];
-    if (buyer) {
+    if (!buyer) {
+      console.warn(`stripe-webhook: order ${session.id} had no buyer email`);
+    } else if (SHARED_TEST_SENDER) {
+      console.warn(
+        `stripe-webhook: order ${session.id} — not emailing the customer. ` +
+          `ORDER_EMAIL_FROM is still ${FROM}, and Resend's shared sender only ` +
+          `delivers to the account's own address. Verify a domain and set ` +
+          `ORDER_EMAIL_FROM to enable customer emails.`
+      );
+    } else {
       jobs.push({
         label: `customer <${buyer}>`,
         p: sendEmail(buyer, buildCustomerEmail(session, items.data)),
       });
-    } else {
-      console.warn(`stripe-webhook: order ${session.id} had no buyer email`);
     }
 
     const results = await Promise.allSettled(jobs.map((j) => j.p));
