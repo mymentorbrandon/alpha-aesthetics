@@ -8,7 +8,7 @@
 
 const assert = require("assert");
 const { ALPHA_PRODUCTS } = require("../js/cart-data.js");
-const { buildEmail } = require("../api/stripe-webhook.js");
+const { buildAdminEmail, buildCustomerEmail } = require("../api/stripe-webhook.js");
 
 const SHIPPABLE = /Skincare Products|Supplements|Cleansers|Moisturizers|Serums|Brightening/;
 const shippableIds = new Set(
@@ -37,7 +37,7 @@ assert.ok(
   "every product needs a real Stripe price id"
 );
 
-// --- order notification email ----------------------------------------------
+// --- order emails ----------------------------------------------------------
 
 const session = {
   id: "cs_live_test",
@@ -54,7 +54,7 @@ const session = {
 };
 const items = [{ description: "Executive IV", quantity: 1, amount_total: 21900, currency: "usd" }];
 
-const mail = buildEmail(session, items);
+const mail = buildAdminEmail(session, items);
 assert.ok(mail.subject.includes("$219.00"), "subject must carry the amount: " + mail.subject);
 assert.ok(mail.subject.includes("Jane Doe"), "subject must name the customer");
 assert.ok(mail.html.includes("Executive IV"), "email must list what was ordered");
@@ -63,10 +63,29 @@ assert.ok(mail.html.includes("jane@example.com") && mail.html.includes("+1404555
   "email must carry how to reach the buyer");
 
 // Services-only order: says so plainly rather than showing an empty address.
-const serviceOnly = buildEmail({ ...session, collected_information: {} }, items);
+const serviceOnly = buildAdminEmail({ ...session, collected_information: {} }, items);
 assert.ok(
   serviceOnly.html.includes("services only"),
   "an order with no shipping address must say why"
 );
 
-console.log("selfcheck OK — 28 physical products ship, 58 services do not; order email carries items, buyer and address");
+// The patient's copy: confirms the order and says what happens next.
+const cust = buildCustomerEmail(session, items);
+assert.ok(cust.subject.includes("$219.00"), "customer subject must carry the amount");
+assert.ok(cust.html.includes("Executive IV"), "customer email must list what they bought");
+assert.ok(cust.html.includes("Jane"), "customer email should greet them by first name");
+assert.ok(cust.html.includes("12 Peachtree St"), "a shipped order must confirm the address");
+assert.ok(cust.html.includes("(470) 610-4550"), "customer email must carry the clinic phone");
+
+// Services-only: no address to confirm, so it must promise a follow-up instead.
+const custService = buildCustomerEmail({ ...session, collected_information: {} }, items);
+assert.ok(
+  /contact you shortly/i.test(custService.html),
+  "a services-only order must tell the patient the clinic will reach out"
+);
+assert.ok(
+  !custService.html.includes("Peachtree"),
+  "a services-only order must not show a shipping address"
+);
+
+console.log("selfcheck OK — 28 physical products ship, 58 services do not; both order emails carry items, and adapt to shipped vs services-only");
