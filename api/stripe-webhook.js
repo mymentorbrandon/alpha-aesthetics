@@ -37,6 +37,13 @@ const FROM = process.env.ORDER_EMAIL_FROM || "onboarding@resend.dev";
  */
 const SHARED_TEST_SENDER = FROM.endsWith("@resend.dev");
 
+/**
+ * Where a reply goes. The from address only has to be a domain Resend can sign
+ * for — no mailbox has to exist behind it — so without this a patient hitting
+ * Reply on their order email would be writing into a black hole.
+ */
+const REPLY_TO = process.env.ORDER_EMAIL_REPLY_TO || TO;
+
 function money(cents, currency) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -192,7 +199,13 @@ async function sendEmail(to, { subject, html }) {
       Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ from: FROM, to: [to], subject, html }),
+    body: JSON.stringify({
+      from: FROM,
+      to: [to],
+      reply_to: REPLY_TO,
+      subject,
+      html,
+    }),
   });
   if (!res.ok) {
     throw new Error(
